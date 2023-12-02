@@ -23,7 +23,7 @@ def get_maxes(rounds):
     reds = []
     blues = []
     greens = []
-    for rnd in rounds.split(';'):
+    for rnd in rounds.split(';'): # This can be done in place but lazy coding
         r, b, g = get_balls_in_round(rnd)
         reds.append(r)
         blues.append(b)
