@@ -44,4 +44,33 @@ def func():
     total = eval_card_pile(pile)
     print(total)
 
-func()
+def faster_eval(pile):
+    rounds = {}
+    for card in pile:
+        card_number, winners, candidates = read_card(card)
+        num_winners = len([x for x in candidates if x in winners])
+        if card_number in rounds:
+            rounds[card_number] += 1
+        else:
+            rounds[card_number] = 1
+        mult =rounds[card_number]
+        next_card = card_number + 1
+        for x in range(next_card, next_card + num_winners):
+            if x in rounds:
+                rounds[x] += mult
+            else:
+                rounds[x] = mult
+    # print(rounds)
+    return sum(rounds.values())
+
+def the_cooler_func():
+    pile = make_pile()
+    total = faster_eval(pile)
+    print(total)
+
+
+import cProfile
+
+cProfile.run('the_cooler_func()')
+print('-----')
+cProfile.run('func()')
