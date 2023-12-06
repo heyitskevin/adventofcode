@@ -1,4 +1,5 @@
 FILENAME = 'input.txt'
+import math
 
 def parse():
     with open(FILENAME) as f:
@@ -17,12 +18,22 @@ def get_ways_to_win(t, d):
             res += 1
     return res
 
+
+def quadratic(t, d):
+    root = math.sqrt(t**2 - 4*d)
+    solns = (t + root)/ 2 , (t - root) / 2
+    return int(math.floor(solns[0]) - math.ceil(solns[1])) + 1
+
+
 def func():
     times, distances = parse()
     one_time = int(''.join(times))
     one_dist = int(''.join(distances))
     print(times, distances, one_time, one_dist)
-    res = get_ways_to_win(one_time, one_dist)
-    print(res)
+    q = quadratic(one_time, one_dist)
+    print('----')
+    # res = get_ways_to_win(one_time, one_dist)
+    # print(res, q)
+    print(q)
 
 func()

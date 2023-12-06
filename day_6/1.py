@@ -1,6 +1,7 @@
 """
 Count the number of ways you can beat the given race record
 """
+import math
 FILENAME = 'input.txt'
 
 def parse():
@@ -20,12 +21,22 @@ def get_ways_to_win(t, d):
             res += 1
     return res
 
+
+def quadratic(t, d):
+    root = math.sqrt(t**2 - 4*d)
+    solns = (t + root)/ 2 , (t - root) / 2
+    return int(math.floor(solns[0]) - math.ceil(solns[1])) + 1
+
 def func():
     times, distances, races = parse()
     res = 1
+    quad = 1
     for ix in range(races):
-
-        res *= get_ways_to_win(times[ix], distances[ix])
-    print(res)
+        q = quadratic(times[ix], distances[ix])
+        r = get_ways_to_win(times[ix], distances[ix])
+        quad *= q
+        res *= r
+    print(res, quad)
 
 func()
+
