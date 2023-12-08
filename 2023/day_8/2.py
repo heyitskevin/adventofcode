@@ -81,7 +81,7 @@ def z_check(arr):
 #             return 0
 
             
-# def find_by_shift(starters, directions, routes, shift):
+# def find_by_shift(starters, directions, routes, shift): # GENERAL SOLUTION, BIG TIME COMPLEXITY
 #     steps = 0
 #     big_step = len(directions)
 #     iters = 0
@@ -109,7 +109,7 @@ def z_check(arr):
 #         print(iters)
 #     return steps + shift
 
-# def big_step_traverse(starters, step_size, routes):
+# def big_step_traverse(starters, step_size, routes): # IGNORE THIS
 #     def end_check(nx, rts):
 #         for n in nx:
 #             print([rts[n][-1]])
