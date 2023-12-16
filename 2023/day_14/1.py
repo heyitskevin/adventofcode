@@ -1,14 +1,8 @@
 FILENAME = 'input.txt'
 
-from collections import defaultdict
-
 def read_file():
     with open(FILENAME) as f:
         return [list(ln) for ln in f.read().split('\n')]
-    
-def transpose(arr):
-    # short circuits at shortest nested list if table is jagged:
-    return list(map(list, zip(*arr)))
 
 def tilt_array_north(arr):
     copy_arr = [['.' for _ in range(len(arr[0]))] for __ in range(len(arr))]
