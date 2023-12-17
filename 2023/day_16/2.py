@@ -121,4 +121,3 @@ def func():
     print(res)
     
 func()
-
