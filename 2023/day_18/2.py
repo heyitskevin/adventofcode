@@ -33,7 +33,7 @@ def dig_hole(instructions):
         'R': (1, 0)
     }
 
-    for inst in instructions:
+    for inst in instructions: # THIS IS A LOT OF WASTE, WE ONLY NEED TO ADD THE DESTINATION COORDINATES AND ASSUME A STRAIGHT LINE
         direction, count, _ = inst
         dd = xy_lookup[direction]
         for i in range(count):
