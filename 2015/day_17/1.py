@@ -44,6 +44,7 @@ def get_combos(containers, target):
 def func():
     containers = sorted(readfile(), reverse=True)
     combos = get_combos(containers, MAX_EGGNOG)
+    # 1 and 2 in the same file
     min_combo = min([len(c) for c in combos])
     min_total = 0
     for cc in combos:
