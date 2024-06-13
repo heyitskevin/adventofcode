@@ -18,9 +18,7 @@ def decompress(line):
         line = line[x.end() + int(n):]
         x = re.search(r, line)
     return count
-    
-    
-    
+     
 
 def func():
     line = read_file()
