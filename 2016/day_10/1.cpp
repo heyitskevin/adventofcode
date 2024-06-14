@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <regex>
 #include <map>
+#include <set>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
 
@@ -70,11 +71,11 @@ void add_bot_givens_to_map(vector<string> givens, map<int, pair<pair<string, str
     }
 }
 
-deque<int> get_all_full_bots(map<int, pair<pair<string, string>, pair<int, int>>>& m) {
+deque<int> get_all_full_bots(map<int, pair<pair<string, string>, pair<int, int>>>& m, set<int>& visited) {
     deque<int> d;
     for(auto iter = m.begin(); iter != m.end(); iter ++) {
         pair<int, int> bucket_data = iter->second.second;
-        if (bucket_data.first != -1 && bucket_data.second != -1) {
+        if ((bucket_data.first != -1 && bucket_data.second != -1) && (visited.count(iter->first) == 0)) {
             // cout << "b1: " << bucket_data.first << " b2: " << bucket_data.second << endl;
             d.push_back(iter->first);
         }
@@ -82,82 +83,62 @@ deque<int> get_all_full_bots(map<int, pair<pair<string, string>, pair<int, int>>
     return d;
 }
 
+int slice_bot_string(string bot_string) {
+    string sliced = bot_string.substr(bot_string.find(" "), bot_string.size());
+    
+    return stoi(sliced);
+}
+
+pair<int, int> make_new_bot_pair(pair<int, int> in_pair, int candidate) {
+    if (in_pair.first == -1) {
+        return make_pair(candidate, -1);
+    } else if (in_pair.second == -1) {
+        return make_pair(in_pair.first, candidate);
+    } else {
+        return in_pair;
+    }
+}
 
 int get_bot(vector<string> bot_commands, vector<string> bot_givens) {
     // bot number -> (low_dest, high_dest), (v1, v2)
     map<int, pair<pair<string, string>, pair<int, int>>> bot_map;
-    
+    set<int> visited_bots;
     add_commands_to_map(bot_commands, bot_map);
     add_bot_givens_to_map(bot_givens, bot_map);
     deque<int> q;
-    auto current_bot = get_all_full_bots(bot_map);
+    auto current_bot = get_all_full_bots(bot_map, visited_bots);
     q.insert(q.end(), current_bot.begin(), current_bot.end());
+    
     while(!q.empty()) {
         int next_bot_id = q.front();
-        cout << "id " << next_bot_id << endl;
-        pair<int, int> next_bot_data = bot_map[next_bot_id].second;
-                
-        if ((next_bot_data.first == 61 && next_bot_data.second == 17) || (next_bot_data.first == 17 && next_bot_data.second == 61)) {
-            return next_bot_id;
+        if (visited_bots.count(next_bot_id) != 0 ){
+            q.pop_front();
+            continue;
         }
-        // Update the map
-        int next_low_bot = -1;
-        int next_high_bot = -1;
-        int next_low_val = -1;
-        int next_high_val = -1;
-        if (next_bot_data.first == -1 && next_bot_data.second == -1) {
-            cerr << "INCORRECT BOT ADDED" << endl;
-        }
-        // Just ignore "output" for now
-        if (next_bot_data.first < next_bot_data.second) {
-            if (bot_map[next_bot_id].first.first.find("output") == string::npos) {
-                next_low_bot = stoi(bot_map[next_bot_id].first.first.substr(4, 3));
-                next_low_val = next_bot_data.first;
-            }
-            if (bot_map[next_bot_id].first.second.find("output") == string::npos) {
-                next_high_bot = stoi(bot_map[next_bot_id].first.second.substr(4, 3));
-                next_high_val = next_bot_data.second;
-            }
-        } else {
-            if (bot_map[next_bot_id].first.second.find("output") == string::npos) {
-                next_low_bot = stoi(bot_map[next_bot_id].first.second.substr(4, 3));
-                next_low_val = next_bot_data.second;
-            }
-            if (bot_map[next_bot_id].first.first.find("output") == string::npos) {
-                next_high_bot = stoi(bot_map[next_bot_id].first.first.substr(4, 3));
-                next_high_val = next_bot_data.first;
-            }
-        }
-        if (next_low_bot != -1) {
-            auto& low_bot = bot_map[next_low_bot];
-            auto& bot_buckets = low_bot.second;
-            cout << "low bck " << bot_buckets.first << " " << bot_buckets.second << endl;
-            if(bot_buckets.first == -1) {
-                bot_buckets = make_pair(next_low_val, -1);
-            } else if(bot_buckets.second == -1) {
-                bot_buckets = make_pair(bot_buckets.first, next_low_val);
-            } else {
-                cerr << "Too many elements" << endl;
-            }
-        }
-        if (next_high_bot != -1) {
-            auto& high_bot = bot_map[next_high_bot];
-            auto& bot_buckets = high_bot.second;
-            if(bot_buckets.first == -1) {
-                bot_buckets = make_pair(next_high_val, -1);
-            } else if(bot_buckets.second == -1) {
-                bot_buckets = make_pair(bot_buckets.first, next_high_val);
-            } else {
-                cerr << "Too many elements" << endl;
-            }
-        }
-        cout << "----" << endl;
-        if (next_bot_data.first != -1 && next_bot_data.second != -1) {
-            // We have evaluated a full bot
-            bot_map[next_bot_id].second =  make_pair(-1, -1);
+        visited_bots.emplace(next_bot_id);
+        
+        pair<pair<string, string>, pair<int, int>> bot_data = bot_map[next_bot_id];
+        int next_low_bot_id = slice_bot_string(bot_data.first.first);
+        int next_high_bot_id = slice_bot_string(bot_data.first.second);
+        int low = bot_data.second.first;
+        int high = bot_data.second.second;
+        
+        if (low > high) {
+            int temp = high;
+            high = low;
+            low = temp;
         }
 
-        auto new_bots = get_all_full_bots(bot_map);
+        if (low == 17 && high == 61) {
+            return next_bot_id;
+        }
+        
+        pair<int, int> low_pair = make_new_bot_pair(bot_map[next_low_bot_id].second, low);
+        pair<int, int> high_pair = make_new_bot_pair(bot_map[next_high_bot_id].second, high);
+
+        bot_map[next_low_bot_id].second = low_pair;
+        bot_map[next_high_bot_id].second = high_pair;
+        auto new_bots = get_all_full_bots(bot_map, visited_bots);
         q.insert(q.end(), new_bots.begin(), new_bots.end());
         q.pop_front();
     }
