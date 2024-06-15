@@ -20,6 +20,8 @@ def mapify(bot_dirs):
         b1, b2 = rest.split(" and high to ")
         m[k] = [b1, b2]
         mm[k] = []
+        mm[b1] = []
+        mm[b2] = []
     return m, mm
 
 
@@ -47,9 +49,6 @@ def func():
         if bot_id in visited:
             continue
         visited.add(bot_id)
-        if 17 in val_map[bot_id] and 61 in val_map[bot_id]:
-            print(bot_id)
-            return bot_id
         low = lowhigh_map[bot_id][0]
         high = lowhigh_map[bot_id][1]
 
@@ -64,6 +63,7 @@ def func():
             q.append(low)
         if len(val_map[high]) > 1:
             q.append(high)
-    print("done")
+    print("propogated")
+    print(val_map["output 0"][0] * val_map["output 1"][0] * val_map["output 2"][0] )
 
 func()
