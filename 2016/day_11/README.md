@@ -1,0 +1,3 @@
+I had the correct intuition for this problem from the very beginning but I struggled intensely w/ implementing it in C++. So much to the point that I got burnt out trying to solve it and yoinked a python executable solution from reddit to validate my intuitions which were correct.
+
+Hellish little bastard of a problem. The solutions here are not entirely mine but the core intuition of searching a space of configurations and pruning redundancies I actually feel pretty pleased w/ understanding.
