@@ -11,7 +11,7 @@ def bfs():
     while q:
         x,y,steps = q.pop(0)
         
-        if steps > 50:
+        if steps > 50: # finnicky inequality here compared to c++ version
             continue
         
         steps += 1
