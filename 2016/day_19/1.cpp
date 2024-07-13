@@ -20,7 +20,6 @@ int main() {
     }
     base = base / 2;
     int diff = start - base;
-    int i  = 1;
     int N = (2*diff) + 1;
     cout << N << endl;
     return 0;
