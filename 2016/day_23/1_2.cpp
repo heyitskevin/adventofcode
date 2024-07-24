@@ -36,7 +36,8 @@ vector<string> read_file() {
 
 int main() {
     int cursor = 0;
-    map<string, int> reg = {{"a", 7}, {"b", 0}, {"c", 0}, {"d", 0}};
+    // For part 2 set a to 12 and wait a LONG time, alternatively do it by hand
+    map<string, unsigned long long> reg = {{"a", 7}, {"b", 0}, {"c", 0}, {"d", 0}};
     vector<string> instructions = read_file();
     string next_inst;
     vector<string> container;
