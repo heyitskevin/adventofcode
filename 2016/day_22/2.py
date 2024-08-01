@@ -40,3 +40,4 @@ a += 26 + 3 + 28 + 23 + 1
 print(a)
 
 # Solved by staring at the grid and doing pen and paper LOL
+# There are certainly codable solutions for this but I'm dumb as rocks
