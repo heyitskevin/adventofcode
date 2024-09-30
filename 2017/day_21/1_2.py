@@ -59,8 +59,6 @@ def chunk(string_grid, chunk_size, lookup):
     slc = len(rows) // chunk_size   
     for new_chunk_start in range(0, len(ng), slc):
         p = [ln.split('/') for ln in ng[new_chunk_start:new_chunk_start + slc]]
-        if not p:
-            continue
         
         for ix in range(len(p[0])):
             r = ""
