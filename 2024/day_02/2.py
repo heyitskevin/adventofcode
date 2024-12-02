@@ -35,7 +35,7 @@ def main():
             safe += 1
             continue
         else:
-            for ix in range(len(report)):
+            for ix in range(len(report)): # brute force apply p1 soln to every combo of p2
                 if is_safe(report[:ix]+report[ix+1:]):
                     safe += 1
                     break
