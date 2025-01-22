@@ -52,5 +52,3 @@ def main():
 
 print(main())
 
-
-# 204191000 too low
