@@ -133,5 +133,3 @@ start = time.time()
 func()
 end = time.time()
 print('timing', end - start)
-
-# 4346 too low

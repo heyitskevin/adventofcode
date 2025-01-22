@@ -32,6 +32,3 @@ def func():
             new_meds.add(new_string)
     print(len(new_meds))
 func()
-
-#210 too low
-#635 too high

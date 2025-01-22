@@ -105,8 +105,6 @@ def func():
 
 # func()
 
-# 888708704663411 too low
-
 
 data = [[int(i) for i in l.replace('@',',').split(',')]
                 for l in open('input.txt')]

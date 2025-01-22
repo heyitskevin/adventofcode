@@ -33,5 +33,3 @@ def func():
             next_ix = start_ix + 1
     print(tot)
 func()
-
-# too high 126674

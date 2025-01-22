@@ -48,6 +48,5 @@ def func():
     res = num_tokens - left_parens - right_parens - 2*commas - 1
     print(res)
     
-# 403 too high
 func()
         

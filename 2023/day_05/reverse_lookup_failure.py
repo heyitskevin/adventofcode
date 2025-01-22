@@ -130,7 +130,3 @@ def func():
     print(res, min(res))
 
 func()
-
-# 195554894 -> TOO HIGH 143576771 99841043, not OFF BY ONE
-# 201731623 
-# 24261545 -> My input's solution

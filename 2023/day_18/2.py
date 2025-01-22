@@ -77,5 +77,3 @@ def func():
 
 
 func()
-
-# 167968940 Too low (terminal crashed b/c too many prints)

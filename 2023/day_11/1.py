@@ -72,6 +72,3 @@ def func():
     
 
 func()
-
-# 9436266 too low
-# 9565386

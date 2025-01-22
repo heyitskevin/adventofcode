@@ -83,4 +83,3 @@ def func():
     print(lights)
 
 func()
-# 861 too low

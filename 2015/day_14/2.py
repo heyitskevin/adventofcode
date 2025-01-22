@@ -52,5 +52,4 @@ def func():
                 scores[n] += 1
     print(scores)
         
-# 1085 too high
 func()

@@ -32,5 +32,3 @@ def func():
     return res
 
 print(func())
-
-# 952 too low

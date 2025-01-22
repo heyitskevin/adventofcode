@@ -161,12 +161,3 @@ for s in range(3 * 131):
 
 f = lambda n,a,b,c: a+n*(b-a+(n-1)*(c-b-b+a)//2)
 print(f(26501365 // 131, *done))
-# 14584 base thigny
-# 13250683 brute force (wrong) too low
-# 128126
-# 596854429360000 too low
-
-# 596857397104703 soln
-# 596860330060984 too high
-# 597672935160000 too high
-
